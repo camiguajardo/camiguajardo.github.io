@@ -22,7 +22,7 @@ html { font-size: calc(100vw * 0.0108); scroll-behavior: smooth; }
 @media (max-width: 767px) { html { font-size: calc(100vw * 0.0224); } }
 
 * { box-sizing: border-box; }
-body { margin: 0; background: #fff; color: var(--ink); -webkit-font-smoothing: antialiased; }
+body { margin: 0; background: #fff; color: var(--ink); -webkit-font-smoothing: antialiased; letter-spacing: -0.02em; }
 
 .content {
   border: var(--frame) solid var(--frame-color);
@@ -42,7 +42,7 @@ bodycopy {
 }
 bodycopy a { color: #2351fc; text-decoration: none; }
 
-h1, h2 { font-family: var(--font); font-weight: 500; margin: 0; letter-spacing: 0; color: var(--ink); }
+h1, h2 { font-family: var(--font); font-weight: 500; margin: 0; letter-spacing: -0.02em; color: var(--ink); }
 h1 { font-size: 4rem; line-height: 1.1; }
 h2 { font-size: 2.4rem; line-height: 1.2; }
 h1 a, h2 a { color: var(--ink); text-decoration: none; }
@@ -62,18 +62,25 @@ b { font-weight: 600; }
   display: inline-block;
   font-size: calc(2.4rem * var(--font-scale, 1));
   line-height: 1.2;
-  color: var(--ink);
-  border: 2px solid black;
-  border-radius: 10rem;
-  padding: 0 1.5rem;
+  color: var(--orange) !important;
+  border: 0;
+  padding: 0;
 }
-.h2-border a, a.h2-border { color: var(--ink); text-decoration: none; }
+.h2-border a, a.h2-border { color: var(--orange) !important; text-decoration: none; }
 .h2-orange { display: inline-block; font-size: 2.4rem; line-height: 1.2; color: var(--orange); }
 .h2-orange a { color: var(--orange); text-decoration: none; }
 
 a:active, .zoomable:active img { opacity: 0.7; }
 
 hr { background: rgba(0,0,0,.6); border: 0; height: 1px; margin: .4rem 0 .5rem; }
+
+/* Portada: texto de bienvenida */
+h1.intro { font-size: 2rem; }
+
+/* Página Sobre mí */
+.about h2 { font-size: 1.6rem; line-height: 1.35; }
+.about h2[style*="208, 98, 36"] { font-size: 2.2rem; line-height: 1.2; }
+.about .h2-border { font-size: 1.6rem; }
 
 /* --- Estructura de página ------------------------------------------------ */
 .page { position: relative; display: flex; justify-content: flex-start; }
@@ -223,4 +230,9 @@ media-item[href] { cursor: pointer; }
   gallery-columnized > media-item { margin-bottom: var(--mgutter, var(--gutter, 1rem)); }
   gallery-justify { gap: var(--mgutter, var(--gutter, 1rem)); }
   .pin-bottom .clock { display: none; }
+  h1.intro { font-size: 1.8rem; }
+  .intro-link { --font-scale: 0.8 !important; }
+  .about h2 { font-size: 1.7rem; }
+  .about h2[style*="208, 98, 36"] { font-size: 2rem; }
+  .about .h2-border { font-size: 1.7rem; }
 }
