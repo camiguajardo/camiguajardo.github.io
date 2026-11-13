@@ -1,0 +1,226 @@
+/* =========================================================================
+   Cami Guajardo — Portfolio
+   Estilos base (replican el diseño que tenía en Cargo)
+   ========================================================================= */
+
+/* Tipografía: en Cargo se usaba "Neue Haas Grotesk".
+   Si tienes Adobe Fonts, añade el <link> del kit en template.html
+   y estos nombres la tomarán automáticamente. */
+:root {
+  --font: "neue-haas-grotesk-text", "Neue Haas Grotesk Text", "Neue Haas Grotesk",
+          "Neue Haas Grotesk Text Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --frame: 1.3rem;               /* marco naranja */
+  --frame-color: #d06224;
+  --orange: #ae431e;
+  --ink: rgba(0, 0, 0, 0.85);
+  --highlight: rgb(242, 218, 100);
+  --header-h: 10rem;
+}
+
+/* El tamaño base escala con el ancho de la ventana, igual que en Cargo */
+html { font-size: calc(100vw * 0.0108); scroll-behavior: smooth; }
+@media (max-width: 767px) { html { font-size: calc(100vw * 0.0224); } }
+
+* { box-sizing: border-box; }
+body { margin: 0; background: #fff; color: var(--ink); -webkit-font-smoothing: antialiased; }
+
+.content {
+  border: var(--frame) solid var(--frame-color);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+bodycopy {
+  display: block;
+  font-family: var(--font);
+  font-size: 1.8rem;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--ink);
+}
+bodycopy a { color: #2351fc; text-decoration: none; }
+
+h1, h2 { font-family: var(--font); font-weight: 500; margin: 0; letter-spacing: 0; color: var(--ink); }
+h1 { font-size: 4rem; line-height: 1.1; }
+h2 { font-size: 2.4rem; line-height: 1.2; }
+h1 a, h2 a { color: var(--ink); text-decoration: none; }
+b { font-weight: 600; }
+
+.caption {
+  display: block;
+  font-size: calc(1.3rem * var(--font-scale, 1));
+  line-height: 1.3;
+  font-weight: 500;
+  color: var(--ink);
+}
+.caption a { text-decoration: underline; color: var(--ink); }
+[style*="--font-scale"]:not(.caption):not(.h2-border):not(.h2-orange) { font-size: calc(1em * var(--font-scale)); }
+
+.h2-border {
+  display: inline-block;
+  font-size: calc(2.4rem * var(--font-scale, 1));
+  line-height: 1.2;
+  color: var(--ink);
+  border: 2px solid black;
+  border-radius: 10rem;
+  padding: 0 1.5rem;
+}
+.h2-border a, a.h2-border { color: var(--ink); text-decoration: none; }
+.h2-orange { display: inline-block; font-size: 2.4rem; line-height: 1.2; color: var(--orange); }
+.h2-orange a { color: var(--orange); text-decoration: none; }
+
+a:active, .zoomable:active img { opacity: 0.7; }
+
+hr { background: rgba(0,0,0,.6); border: 0; height: 1px; margin: .4rem 0 .5rem; }
+
+/* --- Estructura de página ------------------------------------------------ */
+.page { position: relative; display: flex; justify-content: flex-start; }
+.page-layout { width: 100%; max-width: 100%; }
+.page-content { padding: 3rem; text-align: left; width: 100%; }
+main.page { flex: 1; padding-top: var(--header-h); }
+main .page-layout { margin: 0 auto; }
+
+/* Cabecera fija (logo) */
+.pin-top {
+  position: fixed; z-index: 50;
+  top: var(--frame); left: var(--frame); right: var(--frame);
+  pointer-events: none;
+}
+.pin-top a, .pin-top media-item { pointer-events: auto; }
+
+/* Flechas entre proyectos */
+.product-nav {
+  position: fixed; z-index: 50;
+  top: calc(var(--frame) + 2.5rem + 3 * 2.52rem);
+  right: calc(var(--frame) + 3rem);
+  width: calc((100vw - 2 * var(--frame) - 6rem) / 12);
+  text-align: center;
+}
+.product-nav .icon-link { color: var(--ink); text-decoration: none; }
+
+/* Pie: CV / reloj / LinkedIn */
+.pin-bottom { position: relative; }
+.pin-bottom .clock { position: absolute; left: 0; right: 0; bottom: 0; pointer-events: none; }
+.pin-bottom .clock .page-content { padding-top: 0; }
+
+/* --- Columnas (column-set) ---------------------------------------------- */
+column-set {
+  display: flex; width: 100%;
+  gap: var(--gutter, 2rem);
+  align-items: stretch;
+  clear: both;
+}
+column-unit {
+  display: block; min-width: 0; word-wrap: break-word;
+  flex: 0 0 calc((100% - (var(--n) - 1) * var(--gutter, 2rem)) * var(--span) / 12);
+}
+column-unit:last-child { flex-grow: 1; }
+
+/* --- Galerías ------------------------------------------------------------ */
+gallery-grid {
+  display: grid; width: 100%;
+  grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr));
+  gap: var(--gutter, 1rem);
+  align-items: var(--valign, start);
+}
+gallery-columnized {
+  display: block; width: 100%;
+  column-count: var(--cols, 3);
+  column-gap: var(--gutter, 1rem);
+}
+gallery-columnized > media-item { break-inside: avoid; margin-bottom: var(--gutter, 1rem); }
+
+gallery-justify { display: flex; flex-wrap: wrap; width: 100%; gap: var(--gutter, 1rem); }
+gallery-justify > media-item { flex: 0 0 auto; }
+
+gallery-slideshow { display: block; position: relative; width: 100%; }
+gallery-slideshow > media-item {
+  position: absolute; inset: 0 auto auto 0;
+  opacity: 0; transition: opacity var(--speed, .5s) ease;
+}
+gallery-slideshow > media-item.active { position: relative; opacity: 1; z-index: 1; }
+gallery-slideshow[vertical-align="bottom"] > media-item:not(.active) { inset: auto auto 0 0; }
+.slide-nav {
+  position: absolute; top: 50%; z-index: 3; transform: translateY(-50%);
+  width: 30px; height: 30px; border-radius: 50%; border: 0; cursor: pointer;
+  background: rgba(87,87,87,.35); color: rgba(255,255,255,.9); font-size: 16px; line-height: 30px;
+  display: flex; align-items: center; justify-content: center; padding: 0;
+}
+.slide-nav.prev { left: 15px; } .slide-nav.next { right: 15px; }
+
+/* --- Imágenes y vídeos --------------------------------------------------- */
+media-item { display: block; position: relative; width: 100%; }
+media-item img, media-item video {
+  display: block; width: 100%; height: auto;
+  border-radius: 11px;
+  aspect-ratio: var(--ar);
+  background: transparent;
+}
+media-item video { object-fit: cover; }
+media-item.limit { display: inline-block; vertical-align: bottom; }
+media-item.zoomable { cursor: zoom-in; }
+media-item[href] { cursor: pointer; }
+
+/* Animación al hacer scroll (como en Cargo: las imágenes crecen al entrar) */
+@supports (animation-timeline: view()) {
+  main media-item {
+    animation: scaleIn linear both;
+    animation-timeline: view();
+  }
+  gallery-slideshow > media-item { animation: none; }
+}
+@keyframes scaleIn {
+  0%   { transform: scale(.4); transform-origin: 50% 0%; }
+  50%  { transform: scale(1);  transform-origin: 50% 0%; }
+  100% { transform: scale(1);  transform-origin: 50% 0%; }
+}
+@media (prefers-reduced-motion: reduce) { main media-item { animation: none !important; } }
+
+/* Objeto volador (página About) */
+.flying-object { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 40; }
+.flying-object media-item {
+  position: absolute; width: 40vmax; top: 0; left: 0;
+  animation: fly 46s linear infinite; animation-delay: 2s; opacity: 0;
+}
+.flying-object media-item img { border-radius: 0; }
+@keyframes fly {
+  0%   { transform: translate(-45vmax, 60vh) rotate(44deg); opacity: 1; }
+  25%  { transform: translate(30vw, -10vh) rotate(120deg); opacity: 1; }
+  50%  { transform: translate(80vw, 50vh) rotate(200deg); opacity: 1; }
+  75%  { transform: translate(20vw, 85vh) rotate(290deg); opacity: 1; }
+  100% { transform: translate(-45vmax, 60vh) rotate(404deg); opacity: 1; }
+}
+
+/* --- Visor de imágenes (lightbox) ---------------------------------------- */
+.lightbox {
+  position: fixed; inset: 0; z-index: 100; background: #fff;
+  display: flex; align-items: center; justify-content: center; padding: 3rem;
+  cursor: zoom-out;
+}
+.lightbox[hidden] { display: none; }
+.lightbox img { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 11px; }
+.lightbox .slide-nav { position: fixed; }
+.lightbox .close {
+  position: fixed; top: 15px; right: 15px; background: rgba(87,87,87,.35); color: #fff;
+  border: 0; width: 30px; height: 30px; border-radius: 50%; cursor: pointer; font-size: 18px;
+}
+
+/* --- Móvil --------------------------------------------------------------- */
+@media (max-width: 767px) {
+  .content { border: 0; }
+  :root { --frame: 0rem; }
+  h1 { font-size: 2.5rem; }
+  h2, .h2-orange { font-size: 2rem; }
+  .h2-border { font-size: calc(2rem * var(--font-scale, 1)); }
+  column-set:not([mobile-stack="false"]) { flex-direction: column; gap: var(--mgutter, var(--gutter, 2rem)); }
+  column-set:not([mobile-stack="false"]) > column-unit { flex-basis: auto; width: 100%; }
+  column-set:not([mobile-stack="false"]):not([mobile-hide-empty="false"]) > column-unit.empty { display: none; }
+  column-set[mobile-stack="false"] { gap: var(--mgutter, var(--gutter, 2rem)); }
+  gallery-grid { grid-template-columns: repeat(var(--mcols, 1), minmax(0, 1fr)); gap: var(--mgutter, var(--gutter, 1rem)); }
+  gallery-columnized { column-count: var(--mcols, 1); column-gap: var(--mgutter, var(--gutter, 1rem)); }
+  gallery-columnized > media-item { margin-bottom: var(--mgutter, var(--gutter, 1rem)); }
+  gallery-justify { gap: var(--mgutter, var(--gutter, 1rem)); }
+  .pin-bottom .clock { display: none; }
+}
