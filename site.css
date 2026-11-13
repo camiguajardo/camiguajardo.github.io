@@ -238,10 +238,10 @@ media-item[href] { cursor: pointer; }
 }
 
 /* --- Portada: bloques de proyectos -------------------------------------- */
-.home-blocks { padding: 8rem 12rem 2rem; }
-.home-block { margin-bottom: 11rem; }
-.home-block:last-child { margin-bottom: 7rem; }
-.block-title { font-size: 2.4rem; font-weight: 700; line-height: 1.2; margin-bottom: 3rem; }
+.home-blocks { padding: 6rem 7rem 2rem; }
+.home-block { margin-bottom: 8rem; }
+.home-block:last-child { margin-bottom: 5rem; }
+.block-title { font-size: 2.4rem; font-weight: 700; line-height: 1.2; margin-bottom: 2.5rem; }
 .block-title a { color: var(--orange); text-decoration: none; }
 @media (max-width: 767px) {
   .home-blocks { padding: 6rem 0 1rem; }
